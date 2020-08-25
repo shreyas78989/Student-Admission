@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="style.css" rel="stylesheet" />
+<link href="bootstrap.min.css" rel="stylesheet" />
+<script src="angular.min.js"></script>
+<script src="scripts.js"></script>
+</head>
+<body>
+
+<div class="container">
+	<div ng-app="myApp" ng-controller="customersCtrl">
+		<ul class="nav nav-pills">
+            <li ng-class="{active:isSet(1)}"><a href ng-click="setTab(1)">Student Details</a></li>
+            <li ng-class="{active:isSet(2)}"><a href ng-click="setTab(2)">Student Admission Form</a></li>
+        </ul>
+        
+        <div ng-show="isSet(1)">
+            <h4>Student Details</h4>
+			<table style="font-size: larger;">
+				<tr>
+					<th colspan="4">Students Result Board</th>
+				</tr>
+				<tr style="font-style: italic;">
+					<th>Student Name</th>
+					<th>Roll Number</th>
+					<th>Total Marks</th>
+					<th>Status</th>
+				</tr>
+				<tr ng-repeat="x in finalData| orderBy : 'rollNumber'" data-ng-class="{
+				'green-txt':x.status === 'Topper',
+				'black-txt':x.status === 'Pass',
+				'red-txt':x.status === 'Fail'}">
+					<td>{{x.name}}</td>
+					<td>{{x.rollNumber}}</td>
+					<td style="text-align: right;">{{x.totalMarks}}</td>
+					<td>{{x.status}}</td>
+				</tr>
+			</table>
+        </div>
+        <div ng-show="isSet(2)">
+            <h4>Student Admission Form</h4>
+			<form name="SaveForm" ng-submit="funcSave()">  
+				<table border="1" cellspacing="0" cellpadding="10">  
+					<tr>  
+						<td>First Name</td>  
+						<td><input name="name" type="text" ng-model="user.name" ng-pattern="/^[a-zA-Z]*$/" ng-maxlength=20 required/>   
+						 <br/>                  
+						 <span style="color:red" ng-show="SaveForm.name.$dirty && SaveForm.name.$invalid" class="ng-hide">   
+						  Please Enter Valid Name.!  
+						 </span>  
+						</td>                 
+					</tr> 
+					
+					<tr>  
+						<td>Last Name</td>  
+						<td><input name="lastName" type="text" ng-model="user.lastName" ng-pattern="/^[a-zA-Z]*$/" ng-maxlength=20 required/>   
+						 <br/>                  
+						 <span style="color:red" ng-show="SaveForm.lastName.$dirty && SaveForm.lastName.$invalid" class="ng-hide">   
+						  Please Enter Valid Last Name.!  
+						 </span>  
+						</td>                 
+					</tr>  
+					
+					<tr>  
+						<td>Class</td>  
+						<td><input name="class" type="text" ng-model="user.class" ng-pattern="/^[a-zA-Z \d][a-zA-Z \d]*$/" ng-maxlength=20 required/>   
+						 <br/>                  
+						 <span style="color:red" ng-show="SaveForm.class.$dirty && SaveForm.class.$invalid" class="ng-hide">   
+						  Please Enter Valid Class.!  
+						 </span>  
+						</td>                 
+					</tr>  
+					
+					<tr>  
+						<td>Year of Passing</td>  
+						<td><input name="passing" type="number" ng-model="user.passing" min="2000" max="2017" required/>   
+						 <br/>                  
+						 <span style="color:red" ng-show="SaveForm.passing.$dirty && SaveForm.passing.$invalid" class="ng-hide">   
+						  Please Enter Valid Year of Passing between 2000 to 2017.!  
+						 </span>  
+						</td>                 
+					</tr>  
+					
+					<tr>  
+						<td>Percentage of Marks</td>  
+						<td><input name="percentage" type="number" ng-model="user.percentage" max="100" required/>   
+						 <br/>                  
+						 <span style="color:red" ng-show="SaveForm.percentage.$dirty && SaveForm.percentage.$invalid" class="ng-hide">   
+						  Please Enter Valid Percentage of Marks below 100.!  
+						 </span>  
+						</td>                 
+					</tr>  
+					
+					<tr>  
+						<td colspan="4" style="text-align:center"><input type="submit" value="submit" ng-disabled="SaveForm.$invalid || SaveForm.$pristine"ng-disabled="myForm.$invalid || myForm.$pristine" /></td>  
+					</tr>  
+				</table>  
+			</form>  
+        </div>
+	</div>
+</div>
+</body>
+</html>

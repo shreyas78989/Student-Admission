@@ -1,0 +1,20 @@
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 5px;
+  text-align: left;    
+}
+
+.red-txt{
+        color: red;
+    }
+
+.green-txt{
+        color: green;
+    }
+
+.black-txt{
+        color: black;
+    }
